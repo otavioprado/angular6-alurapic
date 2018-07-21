@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { Observable } from '../../node_modules/rxjs/internal/Observable';
+
+import { PhotoService } from './photos/photo/photo.service';
+import { Photo } from './photos/photo/photo';
 
 @Component({
   selector: 'app-root',
@@ -6,18 +10,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  photos = [
-    {
-      url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Sultan_the_Barbary_Lion.jpg/440px-Sultan_the_Barbary_Lion.jpg',
-      description: 'Leão'
-    },
-    {
-      url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Lioness_Etosha_NP.jpg/500px-Lioness_Etosha_NP.jpg',
-      description: 'Leoa'
-    },
-    {
-      url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Lioness_Etosha_NP.jpg/500px-Lioness_Etosha_NP.jpg',
-      description: 'Leoa'
-    }
-  ];
+  
+  photos: any[] = [  ];
+
+  constructor(private _photoService: PhotoService) {  
+    let observable: Observable<Photo[]> = _photoService.listFromUser('flavio');
+
+    observable.subscribe(photos => {
+      console.log(photos[0].description);
+      this.photos = photos;
+    });
+  }
+
+
 }
