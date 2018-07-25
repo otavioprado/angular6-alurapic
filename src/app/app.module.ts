@@ -11,7 +11,6 @@ import { PhotosModule } from './photos/photos.module';
   ],
   imports: [
     BrowserModule,
-    HttpClientModule,
     PhotosModule
   ],
   providers: [],
