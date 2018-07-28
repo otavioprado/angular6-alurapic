@@ -1,5 +1,6 @@
 import { Observable } from 'rxjs/internal/Observable';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { PhotoService } from '../photo/photo.service';
 import { Photo } from '../photo/photo';
@@ -13,10 +14,12 @@ export class PhotoListComponent implements OnInit {
 
   photos: any[] = [  ];
 
-  constructor(private _photoService: PhotoService) {  }
+  constructor(private _photoService: PhotoService, private activatedRoute: ActivatedRoute) {  }
 
   ngOnInit(): void {
-    let observable: Observable<Photo[]> = this._photoService.listFromUser('flavio');
+    const userName = this.activatedRoute.snapshot.params.userName;
+    
+    let observable: Observable<Photo[]> = this._photoService.listFromUser(userName);
     
     observable.subscribe(photos => {
       console.log(photos[0].description);

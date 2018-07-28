@@ -13,6 +13,6 @@ export class PhotoService {
     constructor(private _http: HttpClient) {  }
 
     listFromUser(userName: string): Observable<Photo[]> {
-        return this._http.get<Photo[]>(API + '/flavio/photos');
+        return this._http.get<Photo[]>(API + '/' + userName + '/photos');
     }
 }
