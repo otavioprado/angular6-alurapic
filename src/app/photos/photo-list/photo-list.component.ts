@@ -12,7 +12,7 @@ import { Photo } from '../photo/photo';
 })
 export class PhotoListComponent implements OnInit {
 
-  photos: any[] = [  ];
+  photos: Photo[] = [  ];
 
   constructor(private _photoService: PhotoService, private activatedRoute: ActivatedRoute) {  }
 
