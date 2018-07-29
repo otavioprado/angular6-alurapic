@@ -1,3 +1,4 @@
+import { PhotoListResolver } from './photos/photo-list/photo-list.resolver';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -8,7 +9,10 @@ import { NotFoundComponent } from './errors/not-found/not-found.component';
 const routes: Routes = [
     {
         path: 'user/:userName',
-        component: PhotoListComponent
+        component: PhotoListComponent,
+        resolve: {
+            photos: PhotoListResolver
+        }
     },
     {
         path: 'p/add',

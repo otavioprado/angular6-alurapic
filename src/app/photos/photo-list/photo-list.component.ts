@@ -1,8 +1,6 @@
-import { Observable } from 'rxjs/internal/Observable';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { PhotoService } from '../photo/photo.service';
 import { Photo } from '../photo/photo';
 
 @Component({
@@ -15,17 +13,11 @@ export class PhotoListComponent implements OnInit {
   photos: Photo[] = [  ];
   filter: string = '';
 
-  constructor(private _photoService: PhotoService, private activatedRoute: ActivatedRoute) {  }
+  constructor(private activatedRoute: ActivatedRoute) {  }
 
   ngOnInit(): void {
-    const userName = this.activatedRoute.snapshot.params.userName;
-    
-    let observable: Observable<Photo[]> = this._photoService.listFromUser(userName);
-    
-    observable.subscribe(photos => {
-      console.log(photos[0].description);
-      this.photos = photos;
-    });
+    // pega o photos configurado como resolver no app.routing.module.ts
+    this.photos = this.activatedRoute.snapshot.data.photos;
   }
 
 }
