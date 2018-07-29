@@ -13,6 +13,7 @@ import { Photo } from '../photo/photo';
 export class PhotoListComponent implements OnInit {
 
   photos: Photo[] = [  ];
+  filter: string = '';
 
   constructor(private _photoService: PhotoService, private activatedRoute: ActivatedRoute) {  }
 
