@@ -1,6 +1,6 @@
 import { debounceTime } from 'rxjs/operators';
 import { Subject } from 'rxjs/internal/Subject';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
     selector: 'ap-search',
@@ -8,12 +8,15 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 })
 export class SearchComponent implements OnInit, OnDestroy {
 
+    @Output() onTyping = new EventEmitter<string>();
+    @Input() value: string = ''
     debounce: Subject<string> = new Subject<string>();
 
     ngOnInit(): void {
         // usando debounce é possível aguardar 300ms antes de realizar novamente a operação
         this.debounce
-        .pipe(debounceTime(300));
+        .pipe(debounceTime(300))
+        .subscribe(filter => this.onTyping.emit(filter));
     }
 
     ngOnDestroy(): void {
